@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Store | AI Generated Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+
+  <!-- Login Button top-right -->
+  <div class="absolute top-4 right-4">
+    <button id="loginBtn" class="bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700 transition">
+      Login
+    </button>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="bg-indigo-600 text-white py-20 px-4 text-center shadow">
+    <h1 class="text-5xl font-bold mb-4">My Store</h1>
+    <p class="text-xl mb-6">Discover our AI-curated products that combine innovation and elegance.</p>
+    <a href="#products" class="bg-white text-indigo-600 px-6 py-3 rounded-full font-semibold shadow hover:shadow-lg transition">
+      Explore Products
+    </a>
+  </section>
+
+  <!-- Features -->
+  <section class="py-16 px-6 max-w-5xl mx-auto text-center">
+    <h2 class="text-3xl font-bold mb-8">Why Choose Us?</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8 text-left">
+      <div class="bg-white p-6 rounded shadow" data-fade>
+        <h3 class="text-xl font-semibold mb-2">AI-Powered Selection</h3>
+        <p>Products tailored by smart algorithms to match your style.</p>
+      </div>
+      <div class="bg-white p-6 rounded shadow" data-fade>
+        <h3 class="text-xl font-semibold mb-2">Fast Delivery</h3>
+        <p>Lightning-fast delivery with optimized logistics.</p>
+      </div>
+      <div class="bg-white p-6 rounded shadow" data-fade>
+        <h3 class="text-xl font-semibold mb-2">Secure Checkout</h3>
+        <p>Protected with cutting-edge encryption technology.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section id="products" class="bg-white py-20 px-6">
+    <h2 class="text-3xl font-bold text-center mb-10">Our Products</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      
+      <div class="bg-white rounded shadow p-6 transform hover:scale-105 transition duration-300 ease-in-out" data-product>
+        <h3 class="text-xl font-semibold mb-2">Smart Mirror</h3>
+        <p class="text-gray-600 mb-2">Displays weather, calendar, and health data while you get ready.</p>
+        
+        <p class="text-indigo-500 font-semibold text-sm">Price: $129.00</p>
+        
+        
+        <img src="https://images.unsplash.com/photo-1581093448793-5c4d4e6fbd09" alt="Smart Mirror" class="mt-4 rounded w-full h-48 object-cover" />
+        
+      </div>
+      
+      <div class="bg-white rounded shadow p-6 transform hover:scale-105 transition duration-300 ease-in-out" data-product>
+        <h3 class="text-xl font-semibold mb-2">Wearable Translator</h3>
+        <p class="text-gray-600 mb-2">Real-time speech translation in over 40 languages.</p>
+        
+        <p class="text-indigo-500 font-semibold text-sm">Price: $89.50</p>
+        
+        
+        <img src="https://images.unsplash.com/photo-1603791440384-56cd371ee9a7" alt="Wearable Translator" class="mt-4 rounded w-full h-48 object-cover" />
+        
+      </div>
+      
+      <div class="bg-white rounded shadow p-6 transform hover:scale-105 transition duration-300 ease-in-out" data-product>
+        <h3 class="text-xl font-semibold mb-2">Air Quality Tracker</h3>
+        <p class="text-gray-600 mb-2">Monitor indoor air for dust, CO₂, and pollutants.</p>
+        
+        <p class="text-indigo-500 font-semibold text-sm">Price: $45.75</p>
+        
+        
+        <img src="https://images.unsplash.com/photo-1617037013064-2d74f43a7d88" alt="Air Quality Tracker" class="mt-4 rounded w-full h-48 object-cover" />
+        
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Order Form Section -->
+  <section id="order" class="bg-gray-100 py-16 px-6 max-w-md mx-auto rounded shadow-md mb-16">
+    <h2 class="text-2xl font-bold mb-6 text-center">Place Your Order</h2>
+    <form id="orderForm" class="space-y-4">
+      <div>
+        <label for="name" class="block mb-1 font-semibold">Name</label>
+        <input type="text" id="name" name="name" required
+          class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+      </div>
+      <div>
+        <label for="phone" class="block mb-1 font-semibold">Phone</label>
+        <input type="tel" id="phone" name="phone" required
+          class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+      </div>
+      <div>
+        <label for="address" class="block mb-1 font-semibold">Address</label>
+        <textarea id="address" name="address" rows="3" required
+          class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+      </div>
+      <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded font-semibold hover:bg-indigo-700 transition">
+        Submit Order
+      </button>
+      <p id="formMsg" class="text-center mt-2 text-sm"></p>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-300 text-center py-6 mt-auto">
+    &copy; My Store — Powered by Oneclkstore✨
+  </footer>
+
+  <!-- GSAP Animations -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      gsap.from("[data-product]", {
+        duration: 0.8,
+        opacity: 0,
+        y: 50,
+        stagger: 0.15,
+        ease: "power2.out"
+      });
+
+      gsap.from("[data-fade]", {
+        duration: 1,
+        opacity: 0,
+        y: 40,
+        stagger: 0.2
+      });
+    });
+  </script>
+
+  <!-- Firebase Initialization -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCKXOIi6PtcjII1d31B-v5GaTk23dYyyPw",
+      authDomain: "oneclkstore.firebaseapp.com",
+      projectId: "oneclkstore",
+      storageBucket: "oneclkstore.firebasestorage.app",
+      messagingSenderId: "683953730300",
+      appId: "1:683953730300:web:3646c6dcafbe89d5939d79",
+      measurementId: "G-FK1Y73L8VB"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Login button logic (Google sign-in example)
+    const loginBtn = document.getElementById('loginBtn');
+    loginBtn.addEventListener('click', async () => {
+      try {
+        const provider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        alert(`Logged in as ${result.user.email}`);
+        // Here you can redirect to admin dashboard or show form submissions
+      } catch (err) {
+        alert(`Login failed: ${err.message}`);
+      }
+    });
+
+    // Form submission
+    const orderForm = document.getElementById('orderForm');
+    const formMsg = document.getElementById('formMsg');
+
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      formMsg.textContent = '';
+
+      const name = orderForm.name.value.trim();
+      const phone = orderForm.phone.value.trim();
+      const address = orderForm.address.value.trim();
+
+      if (!name || !phone || !address) {
+        formMsg.textContent = 'Please fill in all fields.';
+        formMsg.className = 'text-red-600';
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "orders"), { name, phone, address, timestamp: new Date() });
+        formMsg.textContent = 'Order submitted successfully!';
+        formMsg.className = 'text-green-600';
+        orderForm.reset();
+      } catch (error) {
+        formMsg.textContent = `Error submitting order: ${error.message}`;
+        formMsg.className = 'text-red-600';
+      }
+    });
+  </script>
+</body>
+</html>
